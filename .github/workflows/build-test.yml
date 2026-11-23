@@ -16,4 +16,8 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
+    - name: Fetch upstream release tags
+      run: git fetch --no-tags --recurse-submodules=no https://github.com/dtcooper/raspotify.git '+refs/tags/*:refs/tags/*'
     - run: make ${{ matrix.arch }}

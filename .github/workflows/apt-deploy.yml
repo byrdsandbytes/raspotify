@@ -52,6 +52,11 @@ jobs:
         with:
           fetch-depth: 0 # tags are needed for the package version
 
+      - name: Fetch upstream release tags
+        # The fork has no tags of its own; build.sh derives the package version
+        # from the latest tag. Fetching over git avoids the GitHub API rate limit.
+        run: git fetch --no-tags --recurse-submodules=no https://github.com/dtcooper/raspotify.git '+refs/tags/*:refs/tags/*'
+
       - name: Build packages
         env:
           # Makes every CI build a strictly newer version than the upstream
